@@ -45,7 +45,7 @@ class FeeCalculatorTest {
         assertThat(actualFee).isEqualTo(60.0);
     }
     @Test
-    public void for_age_above_14_FULL_DAY_should_calculate_50()
+    public void for_age_above_14_FULL_DAY_should_calculate_120()
     {
         //GIVEN
         Visitor child = new Visitor(20);
@@ -55,5 +55,19 @@ class FeeCalculatorTest {
 
         //THEN
         assertThat(actualFee).isEqualTo(120.0);
+    }
+
+    @Test
+    public void should_throw_exception_when_ticketType_not_supported_for_age_above_14()
+    {
+//GIVEN
+        Visitor adult = new Visitor(20);
+// WHEN
+        IllegalArgumentException erreur = (IllegalArgumentException)catchException (()->FeeCalculator.calculateFee(adult, TicketType.WEEK) );
+// THEN
+        assertThat(erreur)
+                .isNotNull()
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("TicketType not supported");
     }
 }

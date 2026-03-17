@@ -18,6 +18,14 @@ public class FeeCalculator {
         }
         return fee;
     }
+    private static double calculateAdultFee(TicketType ticketType) {
+        if (TicketType.HALF_DAY == ticketType) {
+            return (ADULT_PRICE_BASE * 0.6);
+        } else if (TicketType.FULL_DAY == ticketType) {
+            return(ADULT_PRICE_BASE * 1.2);
+        }
+        throw (new IllegalArgumentException("TicketType not supported")) ;}
+
 
     private static double getFee(TicketType ticketType, double fee, double childPriceBase, double x, double x1) {
         if (TicketType.HALF_DAY == ticketType) {
