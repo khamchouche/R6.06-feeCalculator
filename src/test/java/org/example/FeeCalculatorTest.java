@@ -44,4 +44,16 @@ class FeeCalculatorTest {
         //THEN
         assertThat(actualFee).isEqualTo(60.0);
     }
+    @Test
+    public void for_age_above_14_FULL_DAY_should_calculate_50()
+    {
+        //GIVEN
+        Visitor child = new Visitor(20);
+
+        //WHEN
+        double actualFee = FeeCalculator.calculateFee(child, TicketType.FULL_DAY);
+
+        //THEN
+        assertThat(actualFee).isEqualTo(120.0);
+    }
 }
