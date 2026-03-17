@@ -8,17 +8,22 @@ public class FeeCalculator {
         double fee = 0;
 
         // calculate price for adults
-        if ((visitor.age > 14) && (TicketType.HALF_DAY == ticketType)) {
-            fee = ADULT_PRICE_BASE * 0.6;
-        } else if ((visitor.age > 14) && (TicketType.FULL_DAY == ticketType)) {
-            fee = ADULT_PRICE_BASE * 1.2;
+        if (visitor.age > 14) {
+            fee = getFee(ticketType, fee, ADULT_PRICE_BASE, 0.6, 1.2);
         }
 
         // calculate price for children
-        if ((visitor.age <= 14) && (TicketType.HALF_DAY == ticketType)) {
-            fee = CHILD_PRICE_BASE * 0.2;
-        } else if ((visitor.age <= 14) && (TicketType.FULL_DAY == ticketType)) {
-            fee = CHILD_PRICE_BASE * 0.5;
+        if (visitor.age <= 14) {
+            fee = getFee(ticketType, fee, CHILD_PRICE_BASE, 0.2, 0.5);
+        }
+        return fee;
+    }
+
+    private static double getFee(TicketType ticketType, double fee, double childPriceBase, double x, double x1) {
+        if (TicketType.HALF_DAY == ticketType) {
+            fee = childPriceBase * x;
+        } else if (TicketType.FULL_DAY == ticketType) {
+            fee = childPriceBase * x1;
         }
         return fee;
     }
